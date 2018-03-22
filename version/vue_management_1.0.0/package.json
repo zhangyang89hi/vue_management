@@ -1,0 +1,24 @@
+{
+  "name": "vue-management",
+  "version": "1.0.0",
+  "description": "A management use Vue",
+  "author": "zhangyang <zhangyang89hi@126.com>",
+  "private": true,
+  "scripts": {
+    "build": "node build/build.js"
+  },
+  "dependencies": {
+	"express":""
+    "express-http-proxy": "^1.1.0",
+	"cors":"",
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
