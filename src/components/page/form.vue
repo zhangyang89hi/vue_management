@@ -1,9 +1,14 @@
 <template>
     <div class="form-wrapper" style="width:600px">
+
+			<div v-for="i in 10" v-if="!(i==5 && !isShow)" :key="i" style="bordr:solid 1px #000;">
+				<p>This is {{i}} row.</p>
+			</div>
+			<button @click="isShow=!isShow">toggle</button>
         <el-form :model="form" label-width="100px">
-			<el-form-item label="姓名">
-				<el-input v-model="form.name"></el-input>
-			</el-form-item>
+					<el-form-item label="姓名">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
 			<!-- <el-form-item label="性别">
 				<el-radio-group v-model="form.sex">
 					<el-radio :bind="1">男</el-radio>
@@ -46,6 +51,7 @@ export default {
   data(){
     return{
 		id:"1000",
+		isShow: false,
 		form:{
 			name:'',
 			// sex: '',

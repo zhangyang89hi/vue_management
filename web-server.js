@@ -35,7 +35,7 @@ app.post('/login', function(req, res, next) {
   console.log(req.body.password);
 
   if( (req.body.name=='zy') && (req.body.password=='zy')){
-      res.send({"login":"success"});
+      res.send({"login":"success", "responseCode": "000000"});
   }
   else{
       res.send({"login":"fail"});

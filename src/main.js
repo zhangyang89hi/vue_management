@@ -5,6 +5,10 @@ import App from './App'
 import store from './store/store.js'
 import router from './router'
 import axios from './http.js'
+
+import myAlert from './components/common/alert.js'
+Vue.use(myAlert)
+
 // Vue.prototype.$http = axios;
 Vue.prototype.axios = axios;
 
@@ -31,7 +35,6 @@ new Vue({
   	el: '#app',
 	store,
 	router,
-	axios,
 	components: { App },
 	template: '<App/>'
 })

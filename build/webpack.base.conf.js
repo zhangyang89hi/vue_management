@@ -3,6 +3,8 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const SpritesmithPlugin = require('webpack-spritesmith')
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -29,6 +31,22 @@ module.exports = {
       '@': resolve('src'),
     }
   },
+  	plugins: [
+		new BundleAnalyzerPlugin(),
+		new SpritesmithPlugin({
+			src: {
+				cwd: path.resolve(__dirname, '../src/sprite'),  //准备合并成sprit的图片存放文件夹
+				glob: '*.png'  //
+			},
+			target: {
+				image: path.resolve(__dirname, '../static/picture/sprites.png'),  // sprite图片保存路径
+				css: path.resolve(__dirname, '../static/picture/_sprites.css')  // 生成的sass保存在哪里
+			},
+			apiOptions: {
+				cssImageRef: "/static/picture/sprites.png" //css根据该指引找到sprite图
+			}
+			})
+		],
   module: {
     rules: [
       {

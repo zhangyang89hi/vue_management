@@ -12,12 +12,14 @@ export default new Vuex.Store({
 
     },
     mutations:{
-        set_token(state, value){
+        set_token(state, value) {
             state.token = value;
         }
     },
     actions:{
-
+        set_token(context,value) {
+            context.commit('set_token', value)
+        }
     },
 
 })

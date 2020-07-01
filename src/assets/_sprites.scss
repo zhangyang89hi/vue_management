@@ -1,0 +1,134 @@
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
+$bus-tickets-name: 'bus-tickets';
+$bus-tickets-x: 48px;
+$bus-tickets-y: 0px;
+$bus-tickets-offset-x: -48px;
+$bus-tickets-offset-y: 0px;
+$bus-tickets-width: 40px;
+$bus-tickets-height: 40px;
+$bus-tickets-total-width: 88px;
+$bus-tickets-total-height: 88px;
+$bus-tickets-image: '~sprite.png';
+$bus-tickets: (48px, 0px, -48px, 0px, 40px, 40px, 88px, 88px, '~sprite.png', 'bus-tickets', );
+$home-name: 'home';
+$home-x: 40px;
+$home-y: 48px;
+$home-offset-x: -40px;
+$home-offset-y: -48px;
+$home-width: 16px;
+$home-height: 16px;
+$home-total-width: 88px;
+$home-total-height: 88px;
+$home-image: '~sprite.png';
+$home: (40px, 48px, -40px, -48px, 16px, 16px, 88px, 88px, '~sprite.png', 'home', );
+$security-name: 'security';
+$security-x: 0px;
+$security-y: 48px;
+$security-offset-x: 0px;
+$security-offset-y: -48px;
+$security-width: 40px;
+$security-height: 40px;
+$security-total-width: 88px;
+$security-total-height: 88px;
+$security-image: '~sprite.png';
+$security: (0px, 48px, 0px, -48px, 40px, 40px, 88px, 88px, '~sprite.png', 'security', );
+$singpo-name: 'singpo';
+$singpo-x: 56px;
+$singpo-y: 48px;
+$singpo-offset-x: -56px;
+$singpo-offset-y: -48px;
+$singpo-width: 16px;
+$singpo-height: 16px;
+$singpo-total-width: 88px;
+$singpo-total-height: 88px;
+$singpo-image: '~sprite.png';
+$singpo: (56px, 48px, -56px, -48px, 16px, 16px, 88px, 88px, '~sprite.png', 'singpo', );
+$trolley-name: 'trolley';
+$trolley-x: 0px;
+$trolley-y: 0px;
+$trolley-offset-x: 0px;
+$trolley-offset-y: 0px;
+$trolley-width: 48px;
+$trolley-height: 48px;
+$trolley-total-width: 88px;
+$trolley-total-height: 88px;
+$trolley-image: '~sprite.png';
+$trolley: (0px, 0px, 0px, 0px, 48px, 48px, 88px, 88px, '~sprite.png', 'trolley', );
+$spritesheet-width: 88px;
+$spritesheet-height: 88px;
+$spritesheet-image: '~sprite.png';
+$spritesheet-sprites: ($bus-tickets, $home, $security, $singpo, $trolley, );
+$spritesheet: (88px, 88px, '~sprite.png', $spritesheet-sprites, );
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}

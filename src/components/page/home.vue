@@ -9,7 +9,11 @@
                     <el-col :span="8">
                         <div style="float:right;">
                             <span></span>
-                            <el-dropdown type="primary" @command="handleCommand" split-button trigger="click">
+                            <el-dropdown 
+                                type="primary" 
+                                @command="handleCommand" 
+                                split-button trigger="click"
+                            >
                                 User
                                 <!-- <span class="el-dropdown-link">
                                     User<i class="el-icon-caret-bottom el-icon--right"></i>
@@ -26,8 +30,16 @@
             </div>
         </el-header>
         <el-container>
-            <el-aside style="">
-                <el-menu default-active="/home" style="height:100%" @open="handleopen" @close="handleclose" @select="handleselect" router unique-opened>
+            <el-aside style="width: 100px;">
+                <el-menu 
+                    default-active="/home" 
+                    style="height:100%" 
+                    @open="handleopen" 
+                    @close="handleclose" 
+                    @select="handleselect" 
+                    router unique-opened
+                    :collapse="false"
+                >
                     <template v-for="menu in menuItems" >
                         <template v-if="menu.subs">
                             <el-submenu :key="menu.name" :index="menu.index">
@@ -93,6 +105,11 @@ export default {
                     name: 'News',
                     icon: '',
                     index: '/home/news'
+                },
+                {
+                    name: 'blog',
+                    icon: '',
+                    index: '/home/blog'
                 },
                 {
                     name:'Form',
