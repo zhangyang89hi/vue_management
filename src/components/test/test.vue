@@ -44,6 +44,20 @@
         <el-button type="" @click="showMyAlert">My alert</el-button>
         <el-button type="" @click="showMessageBox">MessageBox</el-button>
         <el-input-number ref="elenum" v-model="num" @change="handleChange" :min="1" :max="10000000"  label="描述文字"></el-input-number>
+        <div>
+            <p id="copyp">如果你想要展示一些用户反馈，或者在用户复制/剪切后获取已经选择的文字，这里有个示例供你参考</p>
+            <input id="copyinput" type="text" placeholder="请输入">
+            <textarea id="copyarea" name="" cols="30" rows="10"></textarea>
+            <el-button id="copyButton" type="primary" 
+                data-clipboard-target="#copyp"
+                v-copy
+            >copy</el-button>
+            <button
+                data-clipboard-target="#copyarea"
+                data-clipboard-action="copy"
+                @click="copyHandle"
+            >是</button>
+        </div>
     </div>
 </template>
 <script>
@@ -51,6 +65,8 @@ import Element1 from './element1.vue';
 import Chart1  from './chart1.vue';
 import MySwiper from './myswiper';
 import icon from '../common/icon';
+import ClipboardJS from 'clipboard'
+import { copyClip } from '../../utils/common'
 
 export default {
     props:{
@@ -83,12 +99,42 @@ export default {
         //     return (this.full);
         // }
     },
-    watch:{
+    watch: {
         first:function(){
             this.full = this.first + this.second; 
         }
     },
-    methods:{
+    created() {
+        console.log(this.currentDate);
+        // var x = this.fullname;
+        // console.log(this.fullname);
+    },
+    mounted() {
+        this.$nextTick(function(){
+            document.getElementById('datetime').innerHTML += this.currentDate;
+        })
+
+        var elenum = this.$refs['elenum'].$el.querySelector("input")
+        // elenum.oninput = 'if(elenum.value.length>11) elenum.value=elenum.value.slice(0,11)'
+        console.log(elenum)
+        // elenum.setAttribute('maxlength', '2')
+        // elenum.setAttribute('oninput', 'if(value.length>2) value=value.slice(0,2)');
+        elenum.addEventListener("input", function(event){
+            console.log(elenum.value)
+            if(elenum.value.length > 3) {
+                setTimeout(function() {
+                    elenum.value=elenum.value.slice(0,3)
+                    console.log(elenum.value.slice(0,3))
+                    // console.log(event.target)
+                },1)
+            }
+            event.stopImmediatePropagation();
+        });
+    },
+    methods: {
+        copyHandle(e) {
+            copyClip(e)
+        },
         showMyAlert() {
             console.log('showMyAlert')
             this.$myAlert({
@@ -99,14 +145,14 @@ export default {
         inputName() {
             console.log('|', this.userName, '|')
         },
-        notification_ctr(){
+        notification_ctr() {
             this.$notify({
                 title: '通知',
                 message: '这是一条通知',
                 position: 'bottom-right'
             })
         },
-        openFullLoading(){
+        openFullLoading() {
             let h3 = document.getElementById('h3');
             const load = this.$loading({
                 target: h3,
@@ -117,9 +163,9 @@ export default {
                 load.close();
             }, 3000);
         },
-        message_control(){
+        message_control() {
             this.$message({
-                showclose: true,
+                showClose: true,
                 message: '恭喜你，成功提示',
                 type: 'success'
             })
@@ -159,13 +205,6 @@ export default {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消'
             })
-            this.$msgbox({
-                title: `msgbox${this.msgboxCount++}`,
-                message: '尊敬的用户，您已欠费，请及时缴费',
-                showCancelButton: true,
-                confirmButtonText: '确定',
-                cancelButtonText: '取消'
-            })
             // this.$alert('系统繁忙', {
 
             // })
@@ -179,40 +218,12 @@ export default {
         handleChange() {
         }
     },
-    created(){
-        console.log(this.currentDate);
-        // var x = this.fullname;
-        // console.log(this.fullname);
-    },
-    mounted(){
-        this.$nextTick(function(){
-            document.getElementById('datetime').innerHTML += this.currentDate;
-        })
-
-        var elenum = this.$refs['elenum'].$el.querySelector("input")
-        // elenum.oninput = 'if(elenum.value.length>11) elenum.value=elenum.value.slice(0,11)'
-        console.log(elenum)
-        // elenum.setAttribute('maxlength', '2')
-        // elenum.setAttribute('oninput', 'if(value.length>2) value=value.slice(0,2)');
-        elenum.addEventListener("input", function(event){
-            console.log(elenum.value)
-            if(elenum.value.length > 3) {
-                setTimeout(function() {
-                    elenum.value=elenum.value.slice(0,3)
-                    console.log(elenum.value.slice(0,3))
-                    // console.log(event.target)
-                },1)
-            }
-            event.stopImmediatePropagation();
-        });
-    },
-    updated(){
+    updated() {
 
     },
-    destroyed(){
+    destroyed() {
 
     }
-  
 }
 </script>
 <style lang="scss" scoped>

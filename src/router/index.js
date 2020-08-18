@@ -17,8 +17,10 @@ const News = () => import("../components/page/news.vue");
 const blog = () => import("../components/page/blog.vue");
 
 const DashBoard = () => import("../components/page/dashboard.vue")
+const Excel = () => import("../components/page/excel.vue")
 const Ele = () => import("../components/common/ele.vue");
 const Html = () => import('../components/test/html')
+
 
 Vue.use(VueRouter);
 
@@ -28,6 +30,11 @@ const router = new VueRouter({
       path: "/dashBoard",
       name: "DashBoard",
       component: DashBoard
+    },
+    {
+      path: "/excel",
+      name: "Excel",
+      component: Excel
     },
     {
       path: "/hello",
